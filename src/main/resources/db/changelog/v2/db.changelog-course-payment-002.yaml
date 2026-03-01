@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: modify-paid-amount-type
+      author: Farid Calalov
+      changes:
+        - modifyDataType:
+            tableName: payment
+            columnName: paid_amount
+            newDataType: double (10,2)
