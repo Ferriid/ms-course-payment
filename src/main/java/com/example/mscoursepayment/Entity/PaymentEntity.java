@@ -23,7 +23,6 @@ public class PaymentEntity {
     @Column(name = "pan", nullable = false)
     private String pan;
 
-
     @Column(name = "paid_amount")
     private Double paidAmount;
 
