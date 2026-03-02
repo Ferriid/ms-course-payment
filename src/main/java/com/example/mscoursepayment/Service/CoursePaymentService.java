@@ -32,18 +32,20 @@ public class CoursePaymentService {
             paymentClient.payment(cardRequest);
             paymentEntity.setPaymentStatus(PaymentStatus.ACCEPTED);
             coursePaymentRepository.save(paymentEntity);
-
         } catch (FeignException a) {
             paymentEntity.setPaymentStatus(PaymentStatus.CANCELED);
             coursePaymentRepository.save(paymentEntity);
             if (a.status() == 404) {
                 return new CardResponseDto("Card not found..");
             }
-            if (a.status() == 400) {
-                return new CardResponseDto("Canceled - Not enough balance");
-            }
             if (a.status() == 409) {
                 return new CardResponseDto("Card info is wrong..");
+            }
+            if (a.status() == 424) {
+                return new CardResponseDto("Card status not active.." );
+            }
+            if (a.status() == 400) {
+                return new CardResponseDto("Canceled - Not enough balance");
             }
         }
         return new CardResponseDto("Payment successful");
