@@ -32,7 +32,6 @@ public class CoursePaymentService {
             paymentClient.payment(cardRequest);
             paymentEntity.setPaymentStatus(PaymentStatus.ACCEPTED);
             coursePaymentRepository.save(paymentEntity);
-
         } catch (FeignException a) {
             paymentEntity.setPaymentStatus(PaymentStatus.CANCELED);
             coursePaymentRepository.save(paymentEntity);
